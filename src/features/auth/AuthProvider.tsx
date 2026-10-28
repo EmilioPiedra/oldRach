@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [userId])
 
   const revisandoAdmin = Boolean(userId) && adminInfo?.userId !== userId
-  const isAdmin = Boolean(userId) && adminInfo?.userId === userId && adminInfo.ok
+  const isAdmin = Boolean(userId) && adminInfo !== null && adminInfo.userId === userId && adminInfo.ok
 
   const signIn: AuthState['signIn'] = async (email, password) => {
     if (!supabase) {
