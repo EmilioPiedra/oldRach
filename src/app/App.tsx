@@ -1,5 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import HomePage from '../features/catalog/HomePage'
+import PublicLayout from '../features/catalog/PublicLayout'
+import CatalogPage from '../features/catalog/CatalogPage'
+import ProductPage from '../features/catalog/ProductPage'
+import CartPage from '../features/cart/CartPage'
 import LoginPage from '../features/auth/LoginPage'
 import RequireAuth from '../features/auth/RequireAuth'
 import AdminLayout from '../features/admin/AdminLayout'
@@ -11,7 +14,11 @@ export default function App() {
   return (
     <Routes>
       {/* Parte pública */}
-      <Route path="/" element={<HomePage />} />
+      <Route element={<PublicLayout />}>
+        <Route path="/" element={<CatalogPage />} />
+        <Route path="/producto/:id" element={<ProductPage />} />
+        <Route path="/carrito" element={<CartPage />} />
+      </Route>
 
       {/* Parte privada */}
       <Route path="/admin/login" element={<LoginPage />} />
