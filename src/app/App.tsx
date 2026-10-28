@@ -2,7 +2,10 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import HomePage from '../features/catalog/HomePage'
 import LoginPage from '../features/auth/LoginPage'
 import RequireAuth from '../features/auth/RequireAuth'
-import AdminHome from '../features/admin/AdminHome'
+import AdminLayout from '../features/admin/AdminLayout'
+import ProductList from '../features/admin/ProductList'
+import ProductForm from '../features/admin/ProductForm'
+import SimpleCatalog from '../features/admin/SimpleCatalog'
 
 export default function App() {
   return (
@@ -16,10 +19,20 @@ export default function App() {
         path="/admin"
         element={
           <RequireAuth>
-            <AdminHome />
+            <AdminLayout />
           </RequireAuth>
         }
-      />
+      >
+        <Route index element={<Navigate to="productos" replace />} />
+        <Route path="productos" element={<ProductList />} />
+        <Route path="productos/nuevo" element={<ProductForm key="nuevo" />} />
+        <Route path="productos/:id" element={<ProductForm key="editar" />} />
+        <Route path="marcas" element={<SimpleCatalog key="brands" table="brands" titulo="Marcas" />} />
+        <Route
+          path="categorias"
+          element={<SimpleCatalog key="categories" table="categories" titulo="Categorías" />}
+        />
+      </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
